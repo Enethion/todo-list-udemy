@@ -8,7 +8,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Lista Zadań'
 
-  get footer () {
-    return '2020 © Lista zadań,All rights reserved.'
+  get footer (): string {
+    return '© Lista zadań,All rights reserved.'
+  }
+
+  getDate(): Date {
+    return new Date()
   }
 }
