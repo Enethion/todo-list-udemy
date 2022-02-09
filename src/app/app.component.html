@@ -15,15 +15,27 @@
       class="col s8"
       type="text"
       placeholder="Dodaj zadanie i datę wykonania"
-      (keyup)="onKeyUp($event)"
+      #nameInput
     />
-    <input class="col s2 disabled" type="date" />
-    <button class="btn-floating" (click)="createTask()">+</button>
+    <input class="col s2 disabled" type="date" #dateInput />
+    <button
+      class="btn-floating"
+      (click)="
+        createTask(nameInput.value, dateInput.value);
+        nameInput.value = '';
+        dateInput.value = ''
+      "
+    >
+      +
+    </button>
   </div>
 
   <ul class="collection">
     <li class="collection-item row" *ngFor="let task of tasks; let i = index">
-      <span class="col s10">{{ i+1 }}. {{ task.name }} - {{ task.deadline | date: 'd.MM EEEE':''}}</span>
+      <span class="col s10"
+        >{{ i + 1 }}. {{ task.name }} -
+        {{ task.deadline | date: "d.MM EEEE":"" }}</span
+      >
       <div class="col s2 right-align">
         <button class="btn-floating btn-small red">
           <i class="material-icons">remove</i>
