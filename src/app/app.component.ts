@@ -7,6 +7,7 @@ import { Task } from './task'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  editMode: boolean = false;
   taskName: string = "Wypij kawę";
   taskDate: string = ""
   config: { [key: string]: string } | null = null;
@@ -19,7 +20,7 @@ export class AppComponent {
     {
       name: 'Nauka Angulara',
       deadline: '2020-01-03',
-      done: false,
+      done: true,
     },
     {
       name: 'Sprzątanie kuwety',
@@ -52,5 +53,28 @@ export class AppComponent {
     this.tasks.push(task)
     this.taskName = ""
     this.taskDate = ""
+  }
+
+  toggleEditMode() {
+    this.editMode = !this.editMode
+  }
+
+  markTaskAsDone(task: Task){
+    task.done = true
+  }
+
+  deleteTask(task: Task){
+    this.tasks = this.tasks.filter(e => e !== task)
+  }
+
+  get taskList() {
+    this.sortTasks()
+    return this.tasks
+  }
+
+  private sortTasks() {
+    this.tasks = this.tasks.sort( (a: Task, b: Task) => 
+      a.done === b.done ? 0 : a.done ? 1 : -1
+    )
   }
 }
